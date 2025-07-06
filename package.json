@@ -1,0 +1,43 @@
+{
+  "name": "simple-guest-automation",
+  "version": "3.0.0",
+  "description": "Simple guest registration automation: Guest Form → Google Sheets → Sakani Portal",
+  "main": "simple-orchestrator.js",
+  "scripts": {
+    "start": "node -r dotenv/config simple-orchestrator.js start",
+    "process": "node -r dotenv/config simple-orchestrator.js process",
+    "stats": "node -r dotenv/config simple-orchestrator.js stats",
+    "validate-env": "node -r dotenv/config simple-env-validation.js",
+    "setup-check": "node -r dotenv/config simple-env-validation.js --detailed",
+    "test-sheets": "node -r dotenv/config -e \"const SimpleOrchestrator = require('./simple-orchestrator'); const o = new SimpleOrchestrator(); o.init().then(() => o.fetchNewGuests()).then(guests => console.log('✓ Found', guests.length, 'guests')).catch(console.error)\"",
+    "test-sakani": "node -r dotenv/config simple-automation.js test-login",
+    "test-guest": "node -r dotenv/config simple-automation.js test-guest guests-sample.csv",
+    "test-form": "node test-server.js",
+    "dev": "NODE_ENV=development node -r dotenv/config simple-orchestrator.js process",
+    "production": "NODE_ENV=production node -r dotenv/config simple-orchestrator.js start"
+  },
+  "dependencies": {
+    "puppeteer": "^23.0.0",
+    "csv-parse": "^5.5.0",
+    "googleapis": "^131.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "keywords": [
+    "google-sheets",
+    "sakani",
+    "guest-management",
+    "automation",
+    "airbnb",
+    "property-management",
+    "puppeteer"
+  ],
+  "author": "Simple Guest Management Automation",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
